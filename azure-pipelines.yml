@@ -20,3 +20,11 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: AzurePowerShell@5
+  displayName: 'public ip'
+  inputs:
+    ScriptType: InlineScript
+    Inline: |
+     $ip = (Invoke-WebRequest -uri "http://ifconfig.me/ip").Content
+     write-host "IP: $ip"
+     azurePowerShellVersion: LatestVersion
